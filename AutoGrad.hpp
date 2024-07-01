@@ -184,7 +184,7 @@ void ClearGradientTape()
     Var::GRADIENT_TAPE().clear();
 }
 
-Var exp(Var& v)
+Var exp(const Var& v)
 {
     Var res{ *v.value_ptr };
     *res.value_ptr = std::exp(*res.value_ptr);
@@ -193,7 +193,7 @@ Var exp(Var& v)
     return res;
 }
 
-Var log(Var& v)
+Var log(const Var& v)
 {
     Var res{ *v.value_ptr };
     *res.value_ptr = std::log(*res.value_ptr);
@@ -202,7 +202,7 @@ Var log(Var& v)
     return res;
 }
 
-Var sin(Var& v)
+Var sin(const Var& v)
 {
     Var res{ *v.value_ptr };
     *res.value_ptr = std::sin(*res.value_ptr);
@@ -210,7 +210,7 @@ Var sin(Var& v)
     Var::GRADIENT_TAPE().push_back({ v.value_ptr, 0, v.grad_ptr, 0, res.grad_ptr, Backwards::Sin });
 }
 
-Var cos(Var& v)
+Var cos(const Var& v)
 {
     Var res{ *v.value_ptr };
     *res.value_ptr = std::cos(*res.value_ptr);
@@ -218,7 +218,7 @@ Var cos(Var& v)
     Var::GRADIENT_TAPE().push_back({ v.value_ptr, 0, v.grad_ptr, 0, res.grad_ptr, Backwards::Cos });
 }
 
-Var tan(Var& v)
+Var tan(const Var& v)
 {
     Var res{ *v.value_ptr };
     *res.value_ptr = std::tan(*res.value_ptr);
