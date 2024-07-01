@@ -62,15 +62,32 @@ namespace Backwards
     }
 }
 
-struct History
+class History
 {
-    std::shared_ptr<double>av,bv,ag,bg,cg;
-    _BFty backwardFunction;
+public:
+    History(
+        std::shared_ptr<double>av_,
+        std::shared_ptr<double>bv_,
+        std::shared_ptr<double>ag_,
+        std::shared_ptr<double>bg_,
+        std::shared_ptr<double>cg_,
+        _BFty bFunc
+    ): 
+        av(av_), bv(bv_), ag(ag_), bg(bg_), cg(cg_), backwardFunction(bFunc)
+    {
+        
+    }
+
+
     void backward()
     {
         backwardFunction(av, bv, ag, bg, cg);
     }
+private:
+    std::shared_ptr<double>av,bv,ag,bg,cg;
+    _BFty backwardFunction;
 };
+
 
 struct Var
 {
