@@ -209,6 +209,7 @@ Var sin(const Var& v)
     *res.value_ptr = std::sin(*res.value_ptr);
     res.tapePosition = Var::GRADIENT_TAPE().size();
     Var::GRADIENT_TAPE().push_back({ v.value_ptr, 0, v.grad_ptr, 0, res.grad_ptr, Backwards::Sin });
+    return res;
 }
 
 Var cos(const Var& v)
@@ -217,6 +218,7 @@ Var cos(const Var& v)
     *res.value_ptr = std::cos(*res.value_ptr);
     res.tapePosition = Var::GRADIENT_TAPE().size();
     Var::GRADIENT_TAPE().push_back({ v.value_ptr, 0, v.grad_ptr, 0, res.grad_ptr, Backwards::Cos });
+    return res;
 }
 
 Var tan(const Var& v)
@@ -225,6 +227,7 @@ Var tan(const Var& v)
     *res.value_ptr = std::tan(*res.value_ptr);
     res.tapePosition = Var::GRADIENT_TAPE().size();
     Var::GRADIENT_TAPE().push_back({ v.value_ptr, 0, v.grad_ptr, 0, res.grad_ptr, Backwards::Tan });
+    return res;
 }
 
 
