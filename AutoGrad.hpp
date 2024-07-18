@@ -61,6 +61,12 @@ namespace Backwards
     {
         *ag += *cg * (1 + std::pow(std::tan(*av), 2));
     }
+
+    void Pow(std::shared_ptr<double>av, std::shared_ptr<double>bv, std::shared_ptr<double>ag, std::shared_ptr<double>bg, std::shared_ptr<double>cg)
+    {
+        *ag += *cg * *bv * std::pow(*av, *bv - 1);
+        *bg += std::log(*av) * std::pow(*av, *bv);
+    }
 }
 
 class History
@@ -227,6 +233,15 @@ Var tan(const Var& v)
     *res.value_ptr = std::tan(*res.value_ptr);
     res.tapePosition = Var::GRADIENT_TAPE().size();
     Var::GRADIENT_TAPE().push_back({ v.value_ptr, 0, v.grad_ptr, 0, res.grad_ptr, Backwards::Tan });
+    return res;
+}
+
+Var pow(const Var& a, const Var& b)
+{
+    Var res{ *a.value_ptr };
+    *res.value_ptr = std::pow(*a.value_ptr, *b.value_ptr);
+    res.tapePosition = Var::GRADIENT_TAPE().size();
+    Var::GRADIENT_TAPE().push_back({ a.value_ptr, b.value_ptr, a.grad_ptr, b.value_ptr, res.grad_ptr, Backwards::Pow });
     return res;
 }
 
